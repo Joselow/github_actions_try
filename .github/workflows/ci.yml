@@ -1,0 +1,35 @@
+name: Ci github action
+run-name: Ci github action
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+      types: [opened, synchronize]
+      branches:
+      - main
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+      uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+      
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm run test
+
+  deploy:
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy (simulado)
+        run: echo "Desplegando aplicación..."
