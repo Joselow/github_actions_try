@@ -1,0 +1,31 @@
+name: testing expresions and workflow disptach
+run-name: testing expresions and workflow disptach
+
+on:
+  workflow_dispatch:
+    inputs:
+      year: 
+        desciption: 'years of user'
+        required: true
+        default: 20
+        type: integer
+
+      name:
+        desciption: 'name of user'
+        required: false
+        default: 'Joselow'
+        type: 'string'
+
+jobs:
+  greater:
+    if: ${{ inputs.edad >= 18 }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: run script
+        run: echo "${{ inputs.name }}} es mayor de edad"
+  minor:
+    if: ${{ inputs.edad < 18 }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: run script
+        run: echo "${{ inputs.name }}} es menor de edad"
